@@ -12,3 +12,14 @@ chrome.runtime.onInstalled.addListener(() => {
     }]);
   });
 });
+
+// chrome.runtime.onMessage.addListener(
+//   function(request, sender, sendResponse) {
+//     console.log('got a message');
+//     sendResponse({farewell: 'goodbye'});
+//     chrome.runtime.sendMessage(request, (response) => {
+//       console.log(response.farewell)
+//     });
+//   }
+// )
+
