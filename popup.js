@@ -1,3 +1,4 @@
+const APIKEY = '';
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -15,10 +16,11 @@ chrome.runtime.onMessage.addListener(
             const sanitizedWords = words.join('+').replace(/<\/?i>/g, '');
             const displayWords = sanitizedWords.replace(/\+/g, ', ');
             const adjectives = document.createElement('p');
+            const productDescription = request.itemSlug.split('-').slice(0, 3).join('+');
             adjectives.innerHTML = `Users mentioned that this product is: ${displayWords}`;
             document.getElementById('c3').appendChild(adjectives);
 
-            fetch(`http://api.giphy.com/v1/gifs/search?q=${sanitizedWords}&api_key=${APIKEY}`)
+            fetch(`http://api.giphy.com/v1/gifs/search?q=${sanitizedWords ? sanitizedWords : productDescription}&api_key=${APIKEY}`)
               .then((response) => {
                 response.json().then(body => {
                   let image = body.data[0].images.original.url;
