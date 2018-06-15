@@ -22,7 +22,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
               const adjectives = document.createElement('p');
               const productDescription = tabResponse.itemSlug.split('-').slice(0, 3).join('+');
               adjectives.innerHTML = `Users mentioned that this product is: ${displayWords}`;
-              document.getElementById('c3').appendChild(adjectives);
+              document.getElementById('giphystuff').prepend(adjectives);
 
               fetch(`http://api.giphy.com/v1/gifs/search?q=${sanitizedWords || productDescription}&api_key=${APIKEY}`)
                 .then((giphyResponse) => {
@@ -32,7 +32,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                       const giphy = document.createElement('img');
                       giphy.src = image;
                       giphy.className = 'gif';
-                      document.getElementById('c3').appendChild(giphy);
+                      document.getElementById('giphystuff').appendChild(giphy);
                     }).catch(console.log);
                 }).catch(console.log);
             }).catch(console.log);
@@ -40,7 +40,10 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
       let chart = document.createElement('img');
       chart.src = tabResponse.location;
-      document.getElementById('c3').appendChild(chart);
+      const chartTitle = document.createElement('p');
+      chartTitle.innerHTML = 'Price changes for this product over time';
+      document.getElementById('chartstuff').appendChild(chartTitle);
+      document.getElementById('chartstuff').appendChild(chart);
     },
   )
 });
